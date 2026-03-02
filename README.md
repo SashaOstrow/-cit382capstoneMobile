@@ -1,3 +1,6 @@
-To be filled out
+**App layout**
+App.js → state + NavigationContainer + Stack + Tabs
 
-info about how mobile app
+components/ → reusable UI
+
+pages/ → full screens
