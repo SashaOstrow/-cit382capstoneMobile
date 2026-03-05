@@ -6,21 +6,21 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //import Home from "./pages/Home";
 /*import AppNavBar from "./pages/AppNavBar";
-
 import PopUp from "./pages/PopUp";
 import ListView from "./pages/ListView";
 import NewPost from "./pages/NewPost";
 import DetailView from "./pages/DetailView";
 import Profile from "./pages/profiles";
 */
+import BottomTabs from "./assets/src/pages/BottomTabs";
 
 import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
-
 function App() {
   //initializing state
 const [users, setUsers] = useState([]);
 const [user, setUser] = useState(null);
 const [posts, setPosts] = useState([]);
+
 //useEffect runs things like network, storage, timers
 useEffect(() => {
   //async allows us to use await inside loadDats
@@ -188,65 +188,16 @@ useEffect(() => {
     setUser(null);
   }
 
-return (
+  function Home() { return <Text>Home</Text> }
+  function ListView() { return <Text>Feed</Text> }
+  function Profile() { return <Text>Profile</Text> }
 
-  <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    <Text style={{ fontSize: 24, fontWeight: "bold" }}>Hello Expo!</Text>
-    <Text>Your app is running!</Text>
-  </View>
-)
-  {/* 
-  <View style={{ flex: 1}}>S
-    
-    <AppNavBar
-        isLoggedIn={isLoggedIn}
-        user={user}
-        onLoginClick={() => setShowPopUp(true)}
-        onLogout={handleLogout}
-      />
-
-      <PopUp showPopUp={showPopUp} closePopUp={(S) => setShowPopUp(false)}>
-        <View style={styles.popupBox}>
-
-      
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={loginEmail}
-            onChangeText={setLoginEmail}
-          />
-        
-
-          <TextInput
-            placeholder="Password"
-            secureTextEntry
-            value={loginPassword}
-            onChangeText={setLoginPassword}
-          />
-          <Pressable onPress={handleLogin}><Text>Login</Text></Pressable>
-          <Pressable onPress={handleRegister}><Text>Register</Text></Pressable>
-     
-      </View>
-      </PopUp>
-      */}
-  {/*the different pages */}
-  {/* 
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="ListView" component={ListView} />
-      <Stack.Screen name="DetailView" component={DetailView} />
-      <Stack.Screen name="NewPost" component={NewPost} />
-      <Stack.Screen name="Profile" component={Profile} />
-    </Stack.Navigator>
-  </NavigationContainer>
-   </View>
-  */}
-  
- 
-
-
-      
+  return (
+    <NavigationContainer>
+      <BottomTabs />
+    </NavigationContainer>
+  );
+   
 }
 
 
