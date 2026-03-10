@@ -10,31 +10,16 @@ const Tab = createBottomTabNavigator();
 
 import Home from "./Home";
 import Profiles from "./Profiles";
-
-function CreateScreen (){
-  return(
-    <View>
-      <Text>
-        Create Post Screen
-      </Text>
-    </View>
-  );
-}
-
-function FeedScreen() {
-  return(
-    <View>
-      <Text>
-        Feed Screen
-      </Text>
-    </View>
-  );
-}
-
+import CreatePage from "./CreatePage";
+import Feed from "./Feed";
 
 
 //the base of the app that defines the navigation structure
-function BottomTabs() {
+function BottomTabs({  user, setUser, 
+  users, setUsers, 
+  loginEmail, setLoginEmail, 
+  loginPassword, setLoginPassword,
+  posts, addPost, deletePost }) {
   return (
   <Tab.Navigator
     // allows you to customize all screens at once
@@ -58,10 +43,29 @@ function BottomTabs() {
     })}
   >
     {/* Define each tab screen */}
-    <Tab.Screen name="Home" component={Home} />
-    <Tab.Screen name="Feed" component={FeedScreen} />
-    <Tab.Screen name="Create" component={CreateScreen} />
-    <Tab.Screen name="Profile" component={Profiles} />
+    <Tab.Screen name="Home">
+      {() => <Home user={user} />}
+    </Tab.Screen>
+
+    <Tab.Screen name="Feed">
+      {() => <Feed posts={posts} deletePost={deletePost}/>}
+    </Tab.Screen>
+
+    <Tab.Screen name="Create">
+      {() =>
+         <CreatePage
+          user={user}
+          setUser={setUser}
+          users={users}
+          setUsers={setUsers}
+          addPost={addPost} 
+         />}
+    </Tab.Screen>
+
+    <Tab.Screen name="Profile">
+      {() => <Profiles user={user} setUser={setUser} posts={posts} onDeletePost={deletePost}/>}
+    </Tab.Screen>
+
   </Tab.Navigator>
 );
 }

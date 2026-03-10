@@ -4,14 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//import Home from "./pages/Home";
-/*import AppNavBar from "./pages/AppNavBar";
-import PopUp from "./pages/PopUp";
-import ListView from "./pages/ListView";
-import NewPost from "./pages/NewPost";
-import DetailView from "./pages/DetailView";
-import Profile from "./pages/profiles";
-*/
 import BottomTabs from "./assets/src/pages/BottomTabs";
 
 import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
@@ -20,6 +12,7 @@ function App() {
 const [users, setUsers] = useState([]);
 const [user, setUser] = useState(null);
 const [posts, setPosts] = useState([]);
+
 
 //useEffect runs things like network, storage, timers
 useEffect(() => {
@@ -104,6 +97,8 @@ useEffect(() => {
     const email = loginEmail.trim();
     const password = loginPassword.trim();
 
+    
+
     //runs to make sure email and password are not empty
     if (!email.includes("@") || !password) {
       alert("Please enter a valid email and password.");
@@ -125,20 +120,22 @@ useEffect(() => {
     //Extract name from email (everything before @)
     const name = email.split("@")[0];
 
+    
+
     //create new user object
     const newUser = {
-      email,
-      password,
       name,
+      email,
+      password
     };
 
     //add the new user to the users array
     setUsers((prevUsers) => [...prevUsers, newUser]);
 
-    //automatically logs user in after registering
-    setUser(newUser);
-    setLoginEmail("");
-    setLoginPassword("");
+  setUser(newUser);      // log in globally
+  setLoginEmail("");
+  setLoginPassword("");
+  setShowPopUp(false);   // hide modal if used
   }
 
   function handleLogin() {
@@ -188,14 +185,24 @@ useEffect(() => {
     setUser(null);
   }
 
-  function Home() { return <Text>Home</Text> }
-  function ListView() { return <Text>Feed</Text> }
-  function Profile() { return <Text>Profile</Text> }
-
   return (
     <NavigationContainer>
-      <BottomTabs />
+      <BottomTabs 
+        user={user}
+        setUser={setUser}
+        users={users}
+        setUsers={setUsers}
+        loginEmail={loginEmail}
+        setLoginEmail={setLoginEmail}
+        loginPassword={loginPassword}
+        setLoginPassword={setLoginPassword}
+        posts={posts}
+        addPost={addPost}
+        deletePost={deletePost}
+      />
     </NavigationContainer>
+
+   
   );
    
 }
